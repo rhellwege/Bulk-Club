@@ -1,0 +1,65 @@
+4/1/2021
+67890
+1 gallon milk
+6.49	
+20
+4/1/2021
+67899
+Rye Bread
+4.79	
+5
+4/1/2021
+12899
+Steak
+8.86	
+12
+4/1/2021
+12899
+Pork Tenderloin
+13.75
+3
+4/1/2021
+12345
+Shrek 3
+19.95	
+1
+4/1/2021
+12345
+Jay Leno Collection DVDs
+39.95	
+10
+4/1/2021
+67899
+The Alamo
+19.95	
+6
+4/1/2021
+67899
+Most Basic DVD Player
+59.99	
+1
+4/1/2021
+12345
+EPSON Printer
+59.99	
+20
+4/1/2021
+88888
+EPSON Printer Cart.
+32.50	
+50
+4/1/2021
+67899
+Starbux Coffee
+7.75	 
+4
+4/1/2021
+12899
+Paper Shredder
+199.99  
+25
+4/1/2021
+56723
+Envelops
+2.99    
+5
