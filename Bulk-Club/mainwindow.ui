@@ -30,7 +30,7 @@
        <attribute name="title">
         <string>Log In</string>
        </attribute>
-       <widget class="QWidget" name="widgetLogin" native="true">
+       <widget class="LoginWidget" name="widgetLogin" native="true">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -39,46 +39,7 @@
           <height>91</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="1">
-          <widget class="QPushButton" name="pushButtonLogin">
-           <property name="text">
-            <string>Log In</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelLogin">
-           <property name="text">
-            <string>Log In As</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="comboBoxLogin">
-           <item>
-            <property name="text">
-             <string>Manager</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Administrator</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="pushButtonLogOut">
-           <property name="text">
-            <string>Log Out</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QGridLayout" name="gridLayout"/>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -102,6 +63,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LoginWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">loginwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

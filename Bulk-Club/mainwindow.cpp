@@ -5,6 +5,9 @@
 #include <QStatusBar>
 #include <QMessageBox>
 
+#include <iostream>
+using namespace std;
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,9 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    permission = Permission::NONE;
+    updatePermissions("N/A");
 
-    updateLoggedInStatus("Logged in as: N/A");
+    connect(ui->widgetLogin, &LoginWidget::updatePermissions, this, &MainWindow::updatePermissions);
+
 }
 
 MainWindow::~MainWindow()
@@ -22,38 +26,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updateLoggedInStatus(const QString &loggedInMessage)
+void MainWindow::updatePermissions(QString loginStatus)
 {
-    ui->statusbar->showMessage(loggedInMessage);
-}
-
-
-
-void MainWindow::on_pushButtonLogin_clicked()
-{
-    QString loginMessage = "Logged in as: ";
-    QString permissionString = ui->comboBoxLogin->currentText();
-
-    updateLoggedInStatus(loginMessage.append(permissionString));
-    // update permission:
-    if (permissionString == "Manager")
+    cout << "called updatePermissions" << endl;
+    QString fmtLoggedin = "Logged in as: ";
+    ui->statusbar->showMessage(fmtLoggedin.append(loginStatus));
+    if (loginStatus == "Manager")
     {
         permission = Permission::MANAGER;
     }
-    else if (permissionString == "Administrator")
+    else if (loginStatus == "Administrator")
     {
         permission = Permission::ADMINISTRATOR;
     }
-
+    else
+    {
+        permission = Permission::NONE;
+    }
 }
-
-
-void MainWindow::on_pushButtonLogOut_clicked()
-{
-    updateLoggedInStatus("Logged in as: N/A");
-    permission = Permission::NONE;
-}
-
 
 void MainWindow::on_tabWidgetMain_currentChanged(int index)
 {
