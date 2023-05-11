@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LoginWidget</class>
+ <widget class="QWidget" name="LoginWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>207</width>
+    <height>62</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="labelLogin">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>94</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Log In As</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxLogin">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>0</y>
+     <width>103</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Manager</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Administrator</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="pushButtonLogOut">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>36</y>
+     <width>94</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Log Out</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonLogin">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>36</y>
+     <width>103</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Log In</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

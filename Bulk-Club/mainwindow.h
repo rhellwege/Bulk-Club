@@ -19,8 +19,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void updatePermissions(QString loginStatus);
+    void on_tabWidgetMain_currentChanged(int index);
+
 private:
+    // TODO: add permissions enum
+    enum Permission {
+        NONE = 0,
+        MANAGER,
+        ADMINISTRATOR
+    } permission;
+
     Ui::MainWindow *ui;
+
 };
 
 #endif // MAINWINDOW_H
