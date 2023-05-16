@@ -33,19 +33,24 @@
        <widget class="LoginWidget" name="widgetLogin" native="true">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>221</width>
-          <height>91</height>
+          <x>230</x>
+          <y>30</y>
+          <width>291</width>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout"/>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tabSalesReport">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Sales Report</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="SalesReportWidget" name="widgetSalesReport" native="true"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -67,7 +72,13 @@
   <customwidget>
    <class>LoginWidget</class>
    <extends>QWidget</extends>
-   <header location="global">loginwidget.h</header>
+   <header>loginwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SalesReportWidget</class>
+   <extends>QWidget</extends>
+   <header>salesreportwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
