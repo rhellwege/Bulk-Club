@@ -2,13 +2,15 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 
+#include <QString>
+#include <QDataStream>
 
 class Member
 {
 public:
     Member();
-    QDataStreaam &operator<<(QDataStream &qd, const Member &m);
-    QDataStreaam &operator>>(QDataStream &qd, Member &m);
+    QDataStream &operator<<(QDataStream &qd);
+    QDataStream &operator>>(QDataStream &qd);
 private:
     QString name;
     int number;

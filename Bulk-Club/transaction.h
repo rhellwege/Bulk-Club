@@ -2,12 +2,14 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
+#include <QString>
+#include <QDataStream>
 
 class Transaction
 {
 public:
-    QDataStreaam &operator<<(QDataStream &qd, const Transaction &m);
-    QDataStreaam &operator>>(QDataStream &qd, Transaction &m);
+    QDataStream &operator<<(QDataStream &qd);
+    QDataStream &operator>>(QDataStream &qd);
     Transaction();
 private:
     QString date;

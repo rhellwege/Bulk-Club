@@ -18,7 +18,6 @@ public:
 
 private:
     Ui::SalesReportWidget *ui;
-    TableModel* tb;
 };
 
 #endif // SALESREPORTWIDGET_H
