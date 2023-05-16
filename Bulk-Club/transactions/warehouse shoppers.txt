@@ -1,0 +1,60 @@
+Fred Frugal
+12897 
+Executive
+12/15/2021
+Larry Largefamily
+44444
+Regular
+11/01/2021
+Sally Shopper
+12345
+Regular
+01/01/2022
+Linda Livesalone
+35647
+Executive
+12/15/2021
+Sam Single
+31311
+Executive
+12/05/2021
+Mary IsHappy
+96309
+Executive
+12/05/2021
+Harry Havealotsofkids
+12121
+Executive
+12/30/2021
+Sam Spendstomuch 
+77777
+Executive
+11/15/2021
+Benjamin BusinessShopper
+16161
+Regular
+11/20/2022
+Sally SuperShopper
+61616
+Regular
+03/20/2022
+Sue Shoparound
+56723
+Executive
+03/21/2022
+BulkClub Bob
+67899 
+Regular
+12/22/2021
+Carrie CaresAboutMoney
+88888
+Executive
+07/25/2022
+Johnny Shopper
+12899
+Regular
+10/4/2021
+Betty Buysalot
+67890
+Regular
+03/12/2022
