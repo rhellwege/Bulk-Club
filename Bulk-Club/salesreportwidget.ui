@@ -13,52 +13,83 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QDateEdit" name="dateEdit">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>70</y>
-     <width>110</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="displayFormat">
-    <string>M/d/yyyy</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>110</x>
-     <y>50</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Day to Display</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="tableWidget">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>50</y>
-     <width>281</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>ID #</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Name</string>
-    </property>
-   </column>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="4" column="1">
+    <widget class="QLabel" name="labelUniqueShoppers">
+     <property name="text">
+      <string># of Regular Members: # of Executive Members</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QDateEdit" name="dateEdit">
+     <property name="dateTime">
+      <datetime>
+       <hour>23</hour>
+       <minute>0</minute>
+       <second>0</second>
+       <year>2021</year>
+       <month>4</month>
+       <day>1</day>
+      </datetime>
+     </property>
+     <property name="maximumDateTime">
+      <datetime>
+       <hour>22</hour>
+       <minute>59</minute>
+       <second>59</second>
+       <year>2021</year>
+       <month>4</month>
+       <day>7</day>
+      </datetime>
+     </property>
+     <property name="minimumDate">
+      <date>
+       <year>2021</year>
+       <month>4</month>
+       <day>1</day>
+      </date>
+     </property>
+     <property name="displayFormat">
+      <string>M/d/yyyy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labelItems">
+     <property name="text">
+      <string>Items</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QTableView" name="tableViewItemsSold"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labelTotalRevenue">
+     <property name="text">
+      <string>Total Revenue (- tax): </string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Day to Display</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QTableView" name="tableViewMembers"/>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="labelMembers">
+     <property name="text">
+      <string>Members</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

@@ -24,7 +24,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabLogin">
        <attribute name="title">
@@ -42,11 +42,7 @@
        <attribute name="title">
         <string>Sales Report</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="SalesReportWidget" name="widgetSalesReport" native="true"/>
-        </item>
-       </layout>
+       <layout class="QGridLayout" name="gridLayoutSalesReport"/>
       </widget>
      </widget>
     </item>
@@ -69,12 +65,6 @@
    <class>LoginWidget</class>
    <extends>QWidget</extends>
    <header>loginwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>SalesReportWidget</class>
-   <extends>QWidget</extends>
-   <header>salesreportwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

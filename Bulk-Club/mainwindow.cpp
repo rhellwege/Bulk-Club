@@ -4,6 +4,7 @@
 
 #include <QStatusBar>
 #include <QMessageBox>
+#include "salesreportwidget.h"
 
 #include <iostream>
 using namespace std;
@@ -15,8 +16,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // initialization for all children:
     updatePermissions("N/A");
+    // setup salesreport
+    SalesReportWidget *widgetSalesReport = new SalesReportWidget(this, &db);
+    ui->gridLayoutSalesReport->addWidget(widgetSalesReport);
 
+    // connect all signals
     connect(ui->widgetLogin, &LoginWidget::updatePermissions, this, &MainWindow::updatePermissions);
 
 }
