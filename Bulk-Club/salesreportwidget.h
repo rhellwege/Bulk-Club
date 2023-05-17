@@ -29,7 +29,7 @@ public:
         case 0: return transaction.date;
         case 1: return transaction.item;
         case 2: return transaction.qty;
-        case 3: return transaction.total();
+        case 3: return transaction.total() + (transaction.total()*TAX_RATE);
         default: return {};
         };
     }
@@ -40,7 +40,7 @@ public:
         case 0: return "Date";
         case 1: return "Item";
         case 2: return "Qty";
-        case 3: return "$ Purchase";
+        case 3: return "$ (after tax)";
         default: return {};
         }
     }

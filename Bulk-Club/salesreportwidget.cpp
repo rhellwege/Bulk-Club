@@ -42,8 +42,8 @@ void SalesReportWidget::updateTotalRevenue()
         totalRevenue += (*db->transactions())[proxyItems->mapToSource(idx).row()].total(); // get the actual transaction from the filtered index
     }
     // subtract losses from tax:
-    totalRevenue = totalRevenue - (totalRevenue * TAX_RATE);
-    QString fmtTotal = QString("Total Revenue (- tax): $%1").arg(totalRevenue);
+    totalRevenue = totalRevenue + (totalRevenue * TAX_RATE);
+    QString fmtTotal = QString("Total Revenue (Including tax): $%1").arg(totalRevenue);
     ui->labelTotalRevenue->setText(fmtTotal);
 }
 
