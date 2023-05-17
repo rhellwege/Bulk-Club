@@ -30,7 +30,7 @@
        <second>0</second>
        <year>2021</year>
        <month>4</month>
-       <day>2</day>
+       <day>1</day>
       </datetime>
      </property>
      <property name="maximumDateTime">
@@ -52,6 +52,13 @@
      </property>
      <property name="displayFormat">
       <string>M/d/yyyy</string>
+     </property>
+     <property name="date">
+      <date>
+       <year>2021</year>
+       <month>4</month>
+       <day>1</day>
+      </date>
      </property>
     </widget>
    </item>

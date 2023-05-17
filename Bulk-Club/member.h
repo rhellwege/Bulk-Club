@@ -54,10 +54,10 @@ public:
 
     bool processTransaction(Transaction& t)
     {
-        qDebug() << "Processing member id: " << t.memberID;
+        //qDebug() << "Processing member id: " << t.memberID;
         Member* m = findId(t.memberID);
         if (m == nullptr) return false;
-        qDebug() << "Name: " << m->name;
+        //qDebug() << "Name: " << m->name;
         if (m->type == "Executive")
         {
             m->totalRebate += t.total() * REBATE_RATE; // rebates are before tax

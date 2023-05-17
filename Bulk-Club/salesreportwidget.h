@@ -2,6 +2,7 @@
 #define SALESREPORTWIDGET_H
 
 #include <QWidget>
+#include <QSet>
 #include "BulkClubDatabase.h"
 
 #include <QAbstractTableModel>
@@ -43,6 +44,7 @@ public:
     }
 private:
     BulkClubDatabase* db;
+
 };
 
 class SalesReportShoppersModel : public QAbstractTableModel
@@ -55,18 +57,19 @@ public:
         this->db = db;
     }
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override {return db->transactions()->count();}
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 3;}
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override {return uniqueIDs.count();}
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 2;}
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
     {
         if (role != Qt::DisplayRole && role != Qt::EditRole) return {};
-        Transaction & transaction = (*db->transactions())[index.row()];
-        Member* member = db->members()->findId(transaction.memberID);
+        int id = this->at(index.row());
+
+        Member* member = db->members()->findId(id);
+        qDebug() << member->name;
         if (member == nullptr) return {};
         switch (index.column()) {
-        case 0: return transaction.date;
-        case 1: return member->name;
-        case 2: return member->type;
+        case 0: return member->name;
+        case 1: return member->type;
         default: return {};
         };
     }
@@ -74,14 +77,33 @@ public:
     {
         if (orientation != Qt::Horizontal || role != Qt::DisplayRole) return {};
         switch (section) {
-        case 0: return "Date";
-        case 1: return "Name";
-        case 2: return "Type";
+        case 0: return "Name";
+        case 1: return "Type";
         default: return {};
         }
     }
+
+    void updateUnique(QString date)
+    {
+        beginResetModel();
+        uniqueIDs.clear();
+        for (int i = 0; i < db->transactions()->count(); ++i)
+        {
+            Transaction& t = (*db->transactions())[i];
+            if (t.date == date) uniqueIDs.insert(t.memberID);
+        }
+        qDebug() << "unique ids count: " << uniqueIDs.count();
+        endResetModel();
+    }
+
+    int at(int idx) const
+    {
+        return uniqueIDs.values().at(idx);
+    }
+
 private:
     BulkClubDatabase* db;
+    QSet<int> uniqueIDs;
 };
 
 namespace Ui {
@@ -104,11 +126,13 @@ private:
     void countShoppers();
     Ui::SalesReportWidget *ui;
     BulkClubDatabase* db;
+    SalesReportShoppersModel* modelShoppers;
     QSortFilterProxyModel* proxyItems;
-    QSortFilterProxyModel* proxyShoppers;
+    //QSortFilterProxyModel* proxyShoppers;
     float totalRevenue;
     int regularCount;
     int executiveCount;
+
 };
 
 #endif // SALESREPORTWIDGET_H

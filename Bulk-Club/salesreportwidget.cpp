@@ -7,9 +7,7 @@ SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase* db) :
 {
     ui->setupUi(this);
     this->db = db;
-    totalRevenue = 0.0;
-    regularCount = 0;
-    executiveCount = 0;
+
     // set up the models for the table views:
     SalesReportItemsModel *modelItems = new SalesReportItemsModel(this, db);
     proxyItems = new QSortFilterProxyModel(this); // set up the proxy for sorting and filtering the model
@@ -19,13 +17,10 @@ SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase* db) :
     updateTotalRevenue();
     ui->tableViewItemsSold->setModel(proxyItems);
 
-    SalesReportShoppersModel *modelShoppers = new SalesReportShoppersModel(this, db);
-    proxyShoppers = new QSortFilterProxyModel(this); // set up the proxy for sorting and filtering the model
-    proxyShoppers->setSourceModel(modelShoppers);
-    proxyShoppers->setFilterKeyColumn(0); // filter based on the date
-    proxyShoppers->setFilterFixedString(ui->dateEdit->text());
+    modelShoppers = new SalesReportShoppersModel(this, db);
+    modelShoppers->updateUnique(ui->dateEdit->text());
     countShoppers();
-    ui->tableViewShoppers->setModel(proxyShoppers);
+    ui->tableViewShoppers->setModel(modelShoppers);
 }
 
 SalesReportWidget::~SalesReportWidget()
@@ -51,19 +46,15 @@ void SalesReportWidget::countShoppers()
 {
     regularCount = 0;
     executiveCount = 0;
-    for (int row = 0; row < proxyShoppers->rowCount(); ++row)
+    for (int row = 0; row < modelShoppers->rowCount(); ++row)
     {
-        QModelIndex idx = proxyShoppers->index(row, 0);
 
-        QString memberType = db->members()
-                             ->findId((*db->transactions())
-                             [proxyShoppers->mapToSource(idx).row()]
-                             .memberID)->type;
-
-        if (memberType == "Executive") executiveCount++;
-        if (memberType == "Regular") regularCount++;
+        int id = modelShoppers->at(row);
+        QString memberType = db->members()->findId(id)->type;
+        qDebug() << "testing: " << memberType;
+        if (memberType.contains("Executive")) executiveCount++;
+        else if (memberType == "Regular") regularCount++;
     }
-
     QString fmtCount = QString("# Executive Members: %1\t# Regular Members: %2").arg(executiveCount).arg(regularCount);
     ui->labelUniqueShoppers->setText(fmtCount);
 }
@@ -73,7 +64,7 @@ void SalesReportWidget::on_dateEdit_userDateChanged(const QDate &date)
     proxyItems->setFilterFixedString(ui->dateEdit->text());
     updateTotalRevenue();
 
-    proxyShoppers->setFilterFixedString(ui->dateEdit->text());
+    modelShoppers->updateUnique(ui->dateEdit->text());
     countShoppers();
 }
 
