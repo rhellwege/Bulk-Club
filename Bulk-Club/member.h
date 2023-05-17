@@ -15,13 +15,22 @@ const float EXECUTIVE_DUES = 120.0;
 
 struct Member
 {  
-    friend QTextStream &operator<<(QTextStream &ts, const Member &m);
-    friend QTextStream &operator>>(QTextStream &ts, Member &m);
+    friend QTextStream &operator<<(QTextStream &ts, const Member &m)
+    {
+        ts << m.name << '\n' << m.id << '\n' << m.type << '\n' << m.expiration << '\n' << m.totalSpent << '\n';
+    }
+    friend QTextStream &operator>>(QTextStream &ts, Member &m)
+    {
+        m.name = ts.readLine();
+        m.id = ts.readLine().toInt();
+        m.type = ts.readLine();
+        m.expiration = ts.readLine();
+    }
 
     QString name;
     int id;
     QString type;
-    QString exiration;
+    QString expiration;
 
     float totalSpent;
     float totalRebate;
@@ -34,37 +43,24 @@ struct Member
     }
 };
 
-QTextStream &operator<<(QTextStream &ts, const Member &m)
-{
-    ts << m.name << '\n' << m.id << '\n' << m.type << '\n' << m.expiration << '\n' << m.totalSpent << '\n';
-}
-
-QTextStream &operator>>(QTextStream &ts, Member &m)
-{
-    m.name = ts.readLine();
-    m.id = ts.readLine().toInt();
-    m.type = ts.readLine();
-    m.expiration = ts.readLine();
-}
 
 class MemberList
 {
 private:
     QList<Member> m_data;
 public:
-    MemberList();
-    ~MemberList();
+    MemberList() {}
+    ~MemberList() {}
 
     bool processTransaction(Transaction& t)
     {
         Member* m = findId(t.memberID);
         if (m == nullptr) return false;
-        float purchaseAmount =  * TAX_RATE;
         if (m->type == "Executive")
         {
             m->totalRebate += t.total() * REBATE_RATE; // rebates are before tax
         }
-        m->totalSpent += t.total() * TAX_RATE;
+        m->totalSpent += (t.total() + t.total() * TAX_RATE);
     }
 
     void processAllTransactions(TransactionList& t)

@@ -21,7 +21,7 @@ class Inventory
 private:
     QList<Item> m_data;
 public:
-    Inventory();
+    Inventory() {}
     int count() { return m_data.count(); }
     Item& operator[](int idx) {return m_data[idx];}
     Item* findName(QString name)
@@ -35,22 +35,20 @@ public:
 
     void processTransaction(Transaction& t)
     {
-        Item* item = findName(t->item);
+        Item* item = findName(t.item);
         if (item == nullptr) // insert a new entry for this item
         {
             Item i;
-            i.name = t->item;
-            i.price = t->price;
-            i.totalRevenue = t->total();
-            i.totalSoldQty = t->qty;
+            i.name = t.item;
+            i.price = t.price;
+            i.totalRevenue = t.total();
+            i.totalSoldQty = t.qty;
             m_data.append(i);
             return;
         }
         // entry already exists, so update the info:
-        item->name = t->item;
-        item->price = t->price;
-        item->totalRevenue = t->total();
-        item->totalSoldQty = t->qty;
+        item->totalRevenue += t.total();
+        item->totalSoldQty += t.qty;
     }
 
     void processAllTransactions(TransactionList& t)

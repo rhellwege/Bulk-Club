@@ -4,12 +4,24 @@
 
 #include <QString>
 #include <QTextStream>
+#include <QFile>
+#include <QMessageBox>
 
 struct Transaction
 {
 
-    QTextStream &operator<<(QTextStream &ts);
-    QTextStream &operator>>(QTextStream &ts);
+    friend QTextStream &operator<<(QTextStream &ts, const Transaction& t)
+    {
+        ts << t.date << '\n' << t.memberID << '\n' << t.item << '\n' << t.price << '\n' << t.qty << '\n';
+    }
+    friend QTextStream &operator>>(QTextStream &ts, Transaction& t)
+    {
+        t.date = ts.readLine();
+        t.memberID = ts.readLine().toInt();
+        t.item = ts.readLine();
+        t.price = ts.readLine().toFloat();
+        t.qty = ts.readLine().toInt();
+    }
 
     QString date;
     int memberID;
@@ -23,19 +35,11 @@ struct Transaction
     }
 };
 
-QTextStream &operator<<(QTextStream &ts, const Transaction &t)
-{
-    ts << t.name << '\n' << t.memberID << '\n' << t.type << '\n' << t.expiration << '\n' << t.totalSpent << '\n';
-}
+//QTextStream &operator<<(QTextStream &ts, const Transaction &t)
 
-QTextStream &operator>>(QTextStream &ts, Transaction &t)
-{
-    t.name = ts.readLine();
-    t.memberID = ts.readLine().toInt();
-    t.type = ts.readLine();
-    t.expiration = ts.readLine();
-    t.totalSpent = ts.readLine().toFloat();
-}
+
+//QTextStream &operator>>(QTextStream &ts, Transaction &t)
+
 
 
 class TransactionList
@@ -43,8 +47,8 @@ class TransactionList
 private:
     QList<Transaction> m_data;
 public:
-    TransactionList();
-    ~TransactionList();
+    TransactionList() {}
+    ~TransactionList() {}
 
     Transaction& operator[](int idx)
     {

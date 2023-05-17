@@ -3,6 +3,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "BulkClubDatabase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +31,7 @@ private:
     } permission;
 
     Ui::MainWindow *ui;
+    BulkClubDatabase db;
 
 };
 

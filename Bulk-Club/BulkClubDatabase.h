@@ -34,7 +34,7 @@ public:
         }
         updateAll(); // after loading everything update the information in inventory and memberlist
     }
-    ~BulkClubDatabase();
+    ~BulkClubDatabase() {}
 
     TransactionList* transactions() {return &m_transactionlist;}
     MemberList* members() {return &m_memberlist;}
