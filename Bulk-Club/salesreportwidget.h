@@ -20,7 +20,7 @@ public:
     }
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override {return db->transactions()->count();}
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 3;}
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 4;}
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
     {
         if (role != Qt::DisplayRole && role != Qt::EditRole) return {};
@@ -29,6 +29,7 @@ public:
         case 0: return transaction.date;
         case 1: return transaction.item;
         case 2: return transaction.qty;
+        case 3: return transaction.total();
         default: return {};
         };
     }
@@ -39,6 +40,7 @@ public:
         case 0: return "Date";
         case 1: return "Item";
         case 2: return "Qty";
+        case 3: return "$ Purchase";
         default: return {};
         }
     }
@@ -65,7 +67,7 @@ public:
         int id = this->at(index.row());
 
         Member* member = db->members()->findId(id);
-        qDebug() << member->name;
+        //qDebug() << member->name;
         if (member == nullptr) return {};
         switch (index.column()) {
         case 0: return member->name;
@@ -106,6 +108,38 @@ private:
     QSet<int> uniqueIDs;
 };
 
+class FilterItemsProxy: public QSortFilterProxyModel
+{
+    Q_OBJECT
+
+public:
+    FilterItemsProxy(QObject *parent = 0, BulkClubDatabase* db = 0) : QSortFilterProxyModel(parent) {this->db = db;}
+    void setFilterDate(QString date) {
+        this->date = date;
+        invalidateFilter();
+    }
+    void setFilterMemberType(QString str) {
+        memberType = str;
+        invalidateFilter(); // update the filter
+    }
+
+protected:
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    { // TODO
+        Transaction& t = (*db->transactions())[sourceRow];
+        Member *member = db->members()->findId(t.memberID);
+        if (member == nullptr) return false;
+        return (member->type == this->memberType || this->memberType == "Any") && (t.date == this->date);
+        //return false;
+    }
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override{return true;}
+
+private:
+    QString memberType;
+    QString date;
+    BulkClubDatabase* db;
+};
+
 namespace Ui {
 class SalesReportWidget;
 }
@@ -121,14 +155,16 @@ public:
 private slots:
     void on_dateEdit_userDateChanged(const QDate &date);
 
+    void on_comboBoxFilter_currentIndexChanged(int index);
+
 private:
     void updateTotalRevenue();
     void countShoppers();
     Ui::SalesReportWidget *ui;
     BulkClubDatabase* db;
     SalesReportShoppersModel* modelShoppers;
-    QSortFilterProxyModel* proxyItems;
-    //QSortFilterProxyModel* proxyShoppers;
+    FilterItemsProxy* proxyItems;
+    QSortFilterProxyModel* proxyShoppers;
     float totalRevenue;
     int regularCount;
     int executiveCount;

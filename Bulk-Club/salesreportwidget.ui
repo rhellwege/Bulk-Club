@@ -40,7 +40,7 @@
        <second>59</second>
        <year>2021</year>
        <month>4</month>
-       <day>8</day>
+       <day>9</day>
       </datetime>
      </property>
      <property name="minimumDate">
@@ -94,6 +94,32 @@
      <property name="text">
       <string>Shoppers</string>
      </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="labelFilter">
+     <property name="text">
+      <string>Filter by Member Type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboBoxFilter">
+     <item>
+      <property name="text">
+       <string>Any</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Regular</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Executive</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
