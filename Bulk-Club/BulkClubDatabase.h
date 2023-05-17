@@ -27,7 +27,9 @@ private:
 public:
     BulkClubDatabase()
     {
+        qDebug() << "Loading files into database...";
         loadMemberData(MEMBER_PATH);
+        qDebug() << "Memberlist count: " << m_memberlist.count();
         for (auto path : TRANSACTION_PATHS)
         {
             loadTransactionData(path);

@@ -45,6 +45,44 @@ private:
     BulkClubDatabase* db;
 };
 
+class SalesReportShoppersModel : public QAbstractTableModel
+{
+    Q_OBJECT
+public:
+    SalesReportShoppersModel(QObject *parent = nullptr, BulkClubDatabase* db = nullptr)
+        : QAbstractTableModel(parent)
+    {
+        this->db = db;
+    }
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override {return db->transactions()->count();}
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 3;}
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
+    {
+        if (role != Qt::DisplayRole && role != Qt::EditRole) return {};
+        Transaction & transaction = (*db->transactions())[index.row()];
+        Member* member = db->members()->findId(transaction.memberID);
+        if (member == nullptr) return {};
+        switch (index.column()) {
+        case 0: return transaction.date;
+        case 1: return member->name;
+        case 2: return member->type;
+        default: return {};
+        };
+    }
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override
+    {
+        if (orientation != Qt::Horizontal || role != Qt::DisplayRole) return {};
+        switch (section) {
+        case 0: return "Date";
+        case 1: return "Name";
+        case 2: return "Type";
+        default: return {};
+        }
+    }
+private:
+    BulkClubDatabase* db;
+};
 
 namespace Ui {
 class SalesReportWidget;
@@ -67,7 +105,7 @@ private:
     Ui::SalesReportWidget *ui;
     BulkClubDatabase* db;
     QSortFilterProxyModel* proxyItems;
-    QSortFilterProxyModel* proxyNames;
+    QSortFilterProxyModel* proxyShoppers;
     float totalRevenue;
     int regularCount;
     int executiveCount;

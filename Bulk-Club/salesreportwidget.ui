@@ -25,22 +25,22 @@
     <widget class="QDateEdit" name="dateEdit">
      <property name="dateTime">
       <datetime>
-       <hour>23</hour>
+       <hour>0</hour>
        <minute>0</minute>
        <second>0</second>
        <year>2021</year>
        <month>4</month>
-       <day>1</day>
+       <day>2</day>
       </datetime>
      </property>
      <property name="maximumDateTime">
       <datetime>
-       <hour>22</hour>
+       <hour>23</hour>
        <minute>59</minute>
        <second>59</second>
        <year>2021</year>
        <month>4</month>
-       <day>7</day>
+       <day>8</day>
       </datetime>
      </property>
      <property name="minimumDate">
@@ -80,12 +80,12 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QTableView" name="tableViewMembers"/>
+    <widget class="QTableView" name="tableViewShoppers"/>
    </item>
    <item row="2" column="1">
     <widget class="QLabel" name="labelMembers">
      <property name="text">
-      <string>Members</string>
+      <string>Shoppers</string>
      </property>
     </widget>
    </item>

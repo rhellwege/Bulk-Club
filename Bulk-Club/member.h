@@ -54,8 +54,10 @@ public:
 
     bool processTransaction(Transaction& t)
     {
+        qDebug() << "Processing member id: " << t.memberID;
         Member* m = findId(t.memberID);
         if (m == nullptr) return false;
+        qDebug() << "Name: " << m->name;
         if (m->type == "Executive")
         {
             m->totalRebate += t.total() * REBATE_RATE; // rebates are before tax
@@ -78,9 +80,9 @@ public:
 
     Member* findId(int id)
     {
-        for (auto m : m_data)
+        for (Member& m : m_data)
         {
-            if (m.id = id) return &m;
+            if (m.id == id) return &m;
         }
         return nullptr;
     }
