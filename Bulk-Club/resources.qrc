@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/transactions">
+    <qresource prefix="/">
         <file>transactions/day1.txt</file>
         <file>transactions/day2.txt</file>
         <file>transactions/day3.txt</file>

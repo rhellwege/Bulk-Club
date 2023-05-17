@@ -12,11 +12,11 @@ SOURCES += \
     loginwidget.cpp \
     main.cpp \
     mainwindow.cpp \
-    member.cpp \
-    salesreportwidget.cpp \
-    transaction.cpp
+    salesreportwidget.cpp
 
 HEADERS += \
+    BulkClubDatabase.h \
+    inventory.h \
     loginwidget.h \
     mainwindow.h \
     member.h \
