@@ -3,6 +3,7 @@
 #define BULKCLUBDATABASE_H
 
 #include <QString>
+#include <QObject>
 
 #include "inventory.h"
 #include "transaction.h"
@@ -18,12 +19,15 @@ const QString TRANSACTION_PATHS[7] = {":/transactions/day1.txt",
                                       ":/transactions/day7.txt"};
 
 // This class holds all the data
-class BulkClubDatabase
+class BulkClubDatabase //: public QObject
 {
+    //Q_OBJECT
 private:
     TransactionList m_transactionlist;
     MemberList m_memberlist;
     Inventory m_inventory;
+signals:
+    void newTransaction();
 public:
     BulkClubDatabase()
     {
@@ -64,6 +68,7 @@ public:
         m_transactionlist.append(t); // add the transaction to the transactionlist
         m_memberlist.processTransaction(t);
         m_inventory.processTransaction(t);
+        emit newTransaction(); // tell everyone that there is a new transaction
     }
 
 };

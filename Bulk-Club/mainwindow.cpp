@@ -34,7 +34,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::updatePermissions(QString loginStatus)
 {
-    cout << "called updatePermissions" << endl;
+    //cout << "called updatePermissions" << endl;
     QString fmtLoggedin = "Logged in as: ";
     ui->statusbar->showMessage(fmtLoggedin.append(loginStatus));
     if (loginStatus == "Manager")

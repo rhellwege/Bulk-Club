@@ -125,14 +125,13 @@ public:
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
-    { // TODO
+    {
         Transaction& t = (*db->transactions())[sourceRow];
         Member *member = db->members()->findId(t.memberID);
         if (member == nullptr) return false;
         return (member->type == this->memberType || this->memberType == "Any") && (t.date == this->date);
         //return false;
     }
-    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override{return true;}
 
 private:
     QString memberType;
