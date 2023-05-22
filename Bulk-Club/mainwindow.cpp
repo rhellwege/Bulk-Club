@@ -5,6 +5,7 @@
 #include <QStatusBar>
 #include <QMessageBox>
 #include "salesreportwidget.h"
+#include "memberswidget.h"
 
 #include <iostream>
 using namespace std;
@@ -18,13 +19,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     // initialization for all children:
     updatePermissions("N/A");
+    connect(ui->widgetLogin, &LoginWidget::updatePermissions, this, &MainWindow::updatePermissions);
     // setup salesreport
     SalesReportWidget *widgetSalesReport = new SalesReportWidget(this, &db);
     ui->gridLayoutSalesReport->addWidget(widgetSalesReport);
+    //connect(&db, &BulkClubDatabase::dbUpdated, widgetSalesReport, &SalesReportWidget::dbUpdated);
 
-    // connect all signals
-    connect(ui->widgetLogin, &LoginWidget::updatePermissions, this, &MainWindow::updatePermissions);
-
+    MembersWidget *widgetMembers = new MembersWidget(this, &db);
+    ui->gridLayoutMembers->addWidget(widgetMembers);
+    //connect(&db, &BulkClubDatabase::dbUpdated, widgetMembers, &MembersWidget::dbUpdated);
 }
 
 MainWindow::~MainWindow()
@@ -39,22 +42,22 @@ void MainWindow::updatePermissions(QString loginStatus)
     ui->statusbar->showMessage(fmtLoggedin.append(loginStatus));
     if (loginStatus == "Manager")
     {
-        permission = Permission::MANAGER;
+        db.permission = Permission::MANAGER;
     }
     else if (loginStatus == "Administrator")
     {
-        permission = Permission::ADMINISTRATOR;
+        db.permission = Permission::ADMINISTRATOR;
     }
     else
     {
-        permission = Permission::NONE;
+        db.permission = Permission::NONE;
     }
 }
 
 void MainWindow::on_tabWidgetMain_currentChanged(int index)
 {
     if (index == 0) return; // don't bother checking anything if the user chooses the login page
-    switch (permission)
+    switch (db.permission)
     {
     case Permission::NONE:
         ui->tabWidgetMain->setCurrentIndex(0); // force the tab to switch to the login page

@@ -23,13 +23,6 @@ public slots:
     void on_tabWidgetMain_currentChanged(int index);
 
 private:
-    // TODO: add permissions enum
-    enum Permission {
-        NONE = 0,
-        MANAGER,
-        ADMINISTRATOR
-    } permission;
-
     Ui::MainWindow *ui;
     BulkClubDatabase db;
 

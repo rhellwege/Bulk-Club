@@ -14,7 +14,12 @@ const float REGULAR_DUES = 65.0;
 const float EXECUTIVE_DUES = 120.0;
 
 struct Member
-{  
+{
+    Member()
+    {
+        totalSpent = 0;
+        totalRebate = 0;
+    }
     friend QTextStream &operator<<(QTextStream &ts, const Member &m)
     {
         ts << m.name << '\n' << m.id << '\n' << m.type << '\n' << m.expiration << '\n' << m.totalSpent << '\n';

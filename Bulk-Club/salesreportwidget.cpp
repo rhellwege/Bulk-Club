@@ -92,3 +92,8 @@ void SalesReportWidget::on_comboBoxFilter_currentIndexChanged(int index)
     updateTotalRevenue();
 }
 
+void SalesReportWidget::dbUpdated()
+{
+    qDebug() << "Database updated in sales report.";
+}
+

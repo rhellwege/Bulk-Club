@@ -12,7 +12,9 @@ SOURCES += \
     loginwidget.cpp \
     main.cpp \
     mainwindow.cpp \
+    memberswidget.cpp \
     salesreportwidget.cpp
+
 
 HEADERS += \
     BulkClubDatabase.h \
@@ -20,12 +22,14 @@ HEADERS += \
     loginwidget.h \
     mainwindow.h \
     member.h \
+    memberswidget.h \
     salesreportwidget.h \
     transaction.h
 
 FORMS += \
     loginwidget.ui \
     mainwindow.ui \
+    memberswidget.ui \
     salesreportwidget.ui
 
 # Default rules for deployment.

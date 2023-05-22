@@ -151,6 +151,9 @@ public:
     explicit SalesReportWidget(QWidget *parent = nullptr, BulkClubDatabase* db = nullptr);
     ~SalesReportWidget();
 
+public slots:
+    void dbUpdated();
+
 private slots:
     void on_dateEdit_userDateChanged(const QDate &date);
 
