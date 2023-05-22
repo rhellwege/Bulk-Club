@@ -63,6 +63,12 @@ public:
         m_memberlist.append(m);
         emit dbUpdated();
     }
+
+    void removeMemberAt(int idx)
+    {
+        m_memberlist.removeAt(idx);
+        emit dbUpdated();
+    }
 private:
     TransactionList m_transactionlist;
     MemberList m_memberlist;

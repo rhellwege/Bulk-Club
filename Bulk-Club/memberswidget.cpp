@@ -60,6 +60,19 @@ void MembersWidget::on_buttonRemoveSelected_clicked()
                                  "You must be logged in as administrator to remove a member");
         return;
     }
+    QModelIndexList selection = ui->tableViewMembers->selectionModel()->selectedIndexes();
+    if (selection.count() < 1)
+    {
+        QMessageBox::information(this, "Selection Error",
+                                 "You must select at least 1 row to delete");
+        return;
+    }
+    std::reverse(selection.begin(), selection.end());
+    foreach (QModelIndex idx, selection)
+    {
+        db->removeMemberAt(idx.row());
+    }
+
 }
 
 void MembersWidget::dbUpdated()
