@@ -23,11 +23,11 @@ MainWindow::MainWindow(QWidget *parent)
     // setup salesreport
     SalesReportWidget *widgetSalesReport = new SalesReportWidget(this, &db);
     ui->gridLayoutSalesReport->addWidget(widgetSalesReport);
-    //connect(&db, &BulkClubDatabase::dbUpdated, widgetSalesReport, &SalesReportWidget::dbUpdated);
+    connect(&db, &BulkClubDatabase::dbUpdated, widgetSalesReport, &SalesReportWidget::dbUpdated);
 
     MembersWidget *widgetMembers = new MembersWidget(this, &db);
     ui->gridLayoutMembers->addWidget(widgetMembers);
-    //connect(&db, &BulkClubDatabase::dbUpdated, widgetMembers, &MembersWidget::dbUpdated);
+    connect(&db, &BulkClubDatabase::dbUpdated, widgetMembers, &MembersWidget::dbUpdated);
 }
 
 MainWindow::~MainWindow()

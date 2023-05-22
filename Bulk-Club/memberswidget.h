@@ -46,6 +46,11 @@ public:
         default: return {};
         }
     }
+    void reset()
+    {
+        beginResetModel();
+        endResetModel();
+    }
 private:
     BulkClubDatabase* db;
 

@@ -44,6 +44,11 @@ public:
         default: return {};
         }
     }
+    void reset()
+    {
+        beginResetModel();
+        endResetModel();
+    }
 private:
     BulkClubDatabase* db;
 
@@ -103,6 +108,11 @@ public:
         return uniqueIDs.values().at(idx);
     }
 
+    void reset()
+    {
+        beginResetModel();
+        endResetModel();
+    }
 private:
     BulkClubDatabase* db;
     QSet<int> uniqueIDs;
@@ -165,6 +175,7 @@ private:
     Ui::SalesReportWidget *ui;
     BulkClubDatabase* db;
     SalesReportShoppersModel* modelShoppers;
+    SalesReportItemsModel* modelItems;
     FilterItemsProxy* proxyItems;
     QSortFilterProxyModel* proxyShoppers;
     float totalRevenue;

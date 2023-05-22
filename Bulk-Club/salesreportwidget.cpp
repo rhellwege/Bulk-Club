@@ -9,7 +9,7 @@ SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase* db) :
     this->db = db;
 
     // set up the models for the table views:
-    SalesReportItemsModel *modelItems = new SalesReportItemsModel(this, db);
+    modelItems = new SalesReportItemsModel(this, db);
     proxyItems = new FilterItemsProxy(this, db); // set up the proxy for sorting and filtering the model
     proxyItems->setSourceModel(modelItems);
     //proxyItems->setFilterKeyColumn(0); // filter based on the date
@@ -95,5 +95,7 @@ void SalesReportWidget::on_comboBoxFilter_currentIndexChanged(int index)
 void SalesReportWidget::dbUpdated()
 {
     qDebug() << "Database updated in sales report.";
+    modelItems->reset();
+    modelShoppers->reset();
 }
 
