@@ -1,9 +1,7 @@
 #include "loginwidget.h"
 #include "ui_loginwidget.h"
 
-LoginWidget::LoginWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::LoginWidget)
+LoginWidget::LoginWidget(QWidget *parent) : QWidget(parent), ui(new Ui::LoginWidget)
 {
     ui->setupUi(this);
 }
@@ -18,10 +16,9 @@ void LoginWidget::on_pushButtonLogOut_clicked()
     emit updatePermissions(Permission::NONE);
 }
 
-
 void LoginWidget::on_pushButtonLogin_clicked()
 {
-    switch(ui->comboBoxLogin->currentIndex())
+    switch (ui->comboBoxLogin->currentIndex())
     {
     case 0:
         emit updatePermissions(Permission::MANAGER);
@@ -33,4 +30,3 @@ void LoginWidget::on_pushButtonLogin_clicked()
         emit updatePermissions(Permission::NONE);
     }
 }
-

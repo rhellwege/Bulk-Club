@@ -2,19 +2,19 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
-#include <QString>
-#include <QTextStream>
 #include <QFile>
 #include <QMessageBox>
+#include <QString>
+#include <QTextStream>
 
 struct Transaction
 {
 
-    friend QTextStream &operator<<(QTextStream &ts, const Transaction& t)
+    friend QTextStream &operator<<(QTextStream &ts, const Transaction &t)
     {
         ts << t.date << '\n' << t.memberID << '\n' << t.item << '\n' << t.price << '\n' << t.qty << '\n';
     }
-    friend QTextStream &operator>>(QTextStream &ts, Transaction& t)
+    friend QTextStream &operator>>(QTextStream &ts, Transaction &t)
     {
         t.date = ts.readLine();
         t.memberID = ts.readLine().toInt();
@@ -35,32 +35,30 @@ struct Transaction
     }
 };
 
-//QTextStream &operator<<(QTextStream &ts, const Transaction &t)
-
-
-//QTextStream &operator>>(QTextStream &ts, Transaction &t)
-
-
-
 class TransactionList
 {
-private:
+  private:
     QList<Transaction> m_data;
-public:
-    TransactionList() {}
-    ~TransactionList() {}
 
-    Transaction& operator[](int idx)
+  public:
+    TransactionList()
+    {
+    }
+    ~TransactionList()
+    {
+    }
+
+    Transaction &operator[](int idx)
     {
         return m_data[idx];
     }
 
-    Transaction& at(int idx)
+    Transaction &at(int idx)
     {
         return m_data[idx];
     }
 
-    void append(Transaction& m)
+    void append(Transaction &m)
     {
         m_data.append(m);
     }
@@ -98,6 +96,5 @@ public:
         m_data.removeAt(idx);
     }
 };
-
 
 #endif // TRANSACTION_H

@@ -3,9 +3,9 @@
 #define INVENTORY_H
 
 #include "transaction.h"
-#include <QString>
-#include <QMap>
 #include <QList>
+#include <QMap>
+#include <QString>
 
 struct Item
 {
@@ -18,25 +18,38 @@ struct Item
 
 class Inventory
 {
-private:
+  private:
     QList<Item> m_data;
-public:
-    Inventory() {}
-    int count() { return m_data.count(); }
-    Item& operator[](int idx) {return m_data[idx];}
-    Item& at(int idx) {return m_data[idx];}
-    Item* findName(QString name)
+
+  public:
+    Inventory()
+    {
+    }
+    int count()
+    {
+        return m_data.count();
+    }
+    Item &operator[](int idx)
+    {
+        return m_data[idx];
+    }
+    Item &at(int idx)
+    {
+        return m_data[idx];
+    }
+    Item *findName(QString name)
     {
         for (auto item : m_data)
         {
-            if (item.name == name) return &item;
+            if (item.name == name)
+                return &item;
         }
         return nullptr;
     }
 
-    void processTransaction(Transaction& t)
+    void processTransaction(Transaction &t)
     {
-        Item* item = findName(t.item);
+        Item *item = findName(t.item);
         if (item == nullptr) // insert a new entry for this item
         {
             Item i;
@@ -52,7 +65,7 @@ public:
         item->totalSoldQty += t.qty;
     }
 
-    void processAllTransactions(TransactionList& t)
+    void processAllTransactions(TransactionList &t)
     {
         for (int i = 0; i < t.count(); ++i)
         {

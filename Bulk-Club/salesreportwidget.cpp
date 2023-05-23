@@ -3,9 +3,8 @@
 
 #include "customdialog.h"
 
-SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase* db) :
-    QWidget(parent),
-    ui(new Ui::SalesReportWidget)
+SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase *db)
+    : QWidget(parent), ui(new Ui::SalesReportWidget)
 {
     ui->setupUi(this);
     this->db = db;
@@ -14,8 +13,8 @@ SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase* db) :
     modelItems = new SalesReportItemsModel(this, db);
     proxyItems = new FilterItemsProxy(this, db); // set up the proxy for sorting and filtering the model
     proxyItems->setSourceModel(modelItems);
-    //proxyItems->setFilterKeyColumn(0); // filter based on the date
-    //proxyItems->setFilterFixedString(ui->dateEdit->text());
+    // proxyItems->setFilterKeyColumn(0); // filter based on the date
+    // proxyItems->setFilterFixedString(ui->dateEdit->text());
     proxyItems->setFilterDate(ui->dateEdit->text());
     proxyItems->setFilterMemberType(ui->comboBoxFilter->currentText());
     updateTotalRevenue();
@@ -41,7 +40,8 @@ void SalesReportWidget::updateTotalRevenue()
     for (int row = 0; row < proxyItems->rowCount(); ++row)
     {
         QModelIndex idx = proxyItems->index(row, 0);
-        totalRevenue += (*db->transactions())[proxyItems->mapToSource(idx).row()].total(); // get the actual transaction from the filtered index
+        totalRevenue += (*db->transactions())[proxyItems->mapToSource(idx).row()]
+                            .total(); // get the actual transaction from the filtered index
     }
     // subtract losses from tax:
     totalRevenue = totalRevenue + (totalRevenue * TAX_RATE);
@@ -55,13 +55,16 @@ void SalesReportWidget::countShoppers()
     executiveCount = 0;
     for (int row = 0; row < proxyShoppers->rowCount(); ++row)
     {
-        int id = modelShoppers->at(proxyShoppers->mapToSource(proxyShoppers->index(row,0)).row());
+        int id = modelShoppers->at(proxyShoppers->mapToSource(proxyShoppers->index(row, 0)).row());
         Member *member = db->members()->findId(id);
-        if (member == nullptr) continue;
+        if (member == nullptr)
+            continue;
         QString memberType = member->type;
-        //qDebug() << "testing: " << memberType;
-        if (memberType.contains("Executive")) executiveCount++;
-        else if (memberType == "Regular") regularCount++;
+        // qDebug() << "testing: " << memberType;
+        if (memberType.contains("Executive"))
+            executiveCount++;
+        else if (memberType == "Regular")
+            regularCount++;
     }
     QString fmtCount = QString("# Executive Members: %1\t# Regular Members: %2").arg(executiveCount).arg(regularCount);
     ui->labelUniqueShoppers->setText(fmtCount);
@@ -76,7 +79,6 @@ void SalesReportWidget::on_dateEdit_userDateChanged(const QDate &date)
     countShoppers();
 }
 
-
 void SalesReportWidget::on_comboBoxFilter_currentIndexChanged(int index)
 {
     // TODO: make custom sorting filter class for shoppers like I did with items
@@ -84,7 +86,6 @@ void SalesReportWidget::on_comboBoxFilter_currentIndexChanged(int index)
     if (curText == "Any")
     {
         proxyShoppers->setFilterWildcard("*");
-
     }
     else
     {
@@ -105,7 +106,6 @@ void SalesReportWidget::dbUpdated()
     updateTotalRevenue();
 }
 
-
 void SalesReportWidget::on_buttonAddTransaction_clicked()
 {
     CustomDialog d("Add Transaction", this);
@@ -125,7 +125,8 @@ void SalesReportWidget::on_buttonAddTransaction_clicked()
 
     d.exec();
 
-    if (d.wasCancelled()) return;
+    if (d.wasCancelled())
+        return;
     transaction.date = QString::fromStdString(date);
     transaction.memberID = atoi(memberID.c_str());
     transaction.item = QString::fromStdString(item);
@@ -133,4 +134,3 @@ void SalesReportWidget::on_buttonAddTransaction_clicked()
     transaction.qty = atoi(qty.c_str());
     db->addTransaction(transaction);
 }
-

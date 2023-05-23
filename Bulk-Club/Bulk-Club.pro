@@ -16,7 +16,6 @@ SOURCES += \
     memberswidget.cpp \
     salesreportwidget.cpp
 
-
 HEADERS += \
     BulkClubDatabase.h \
     customdialog.h \
