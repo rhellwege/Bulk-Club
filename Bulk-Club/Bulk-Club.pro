@@ -9,23 +9,28 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    customdialog.cpp \
     loginwidget.cpp \
     main.cpp \
     mainwindow.cpp \
+    memberswidget.cpp \
     salesreportwidget.cpp
 
 HEADERS += \
     BulkClubDatabase.h \
+    customdialog.h \
     inventory.h \
     loginwidget.h \
     mainwindow.h \
     member.h \
+    memberswidget.h \
     salesreportwidget.h \
     transaction.h
 
 FORMS += \
     loginwidget.ui \
     mainwindow.ui \
+    memberswidget.ui \
     salesreportwidget.ui
 
 # Default rules for deployment.

@@ -1,9 +1,11 @@
 #ifndef LOGINWIDGET_H
 #define LOGINWIDGET_H
 
+#include "BulkClubDatabase.h" // for permissions
 #include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class LoginWidget;
 }
 
@@ -11,19 +13,19 @@ class LoginWidget : public QWidget
 {
     Q_OBJECT
 
-public:
+  public:
     explicit LoginWidget(QWidget *parent = nullptr);
     ~LoginWidget();
 
-signals:
-    void updatePermissions(QString loginStatus);
+  signals:
+    void updatePermissions(Permission permission);
 
-private slots:
+  private slots:
     void on_pushButtonLogOut_clicked();
 
     void on_pushButtonLogin_clicked();
 
-private:
+  private:
     Ui::LoginWidget *ui;
 };
 

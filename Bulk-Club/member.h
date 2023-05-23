@@ -2,11 +2,11 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 
-#include <QString>
-#include <QTextStream>
+#include "transaction.h"
 #include <QList>
 #include <QMessageBox>
-#include "transaction.h"
+#include <QString>
+#include <QTextStream>
 
 const float TAX_RATE = 0.0775;
 const float REBATE_RATE = 0.02;
@@ -14,7 +14,12 @@ const float REGULAR_DUES = 65.0;
 const float EXECUTIVE_DUES = 120.0;
 
 struct Member
-{  
+{
+    Member()
+    {
+        totalSpent = 0;
+        totalRebate = 0;
+    }
     friend QTextStream &operator<<(QTextStream &ts, const Member &m)
     {
         ts << m.name << '\n' << m.id << '\n' << m.type << '\n' << m.expiration << '\n' << m.totalSpent << '\n';
@@ -38,26 +43,33 @@ struct Member
     bool shouldConvert()
     {
         if (type == "Executive")
-            return REGULAR_DUES < (EXECUTIVE_DUES-totalRebate);
+            return REGULAR_DUES < (EXECUTIVE_DUES - totalRebate);
+        else
+            return ((totalSpent - (totalSpent * TAX_RATE)) * REBATE_RATE) > (EXECUTIVE_DUES - REGULAR_DUES);
         return false;
     }
 };
 
-
 class MemberList
 {
-private:
+  private:
     QList<Member> m_data;
-public:
-    MemberList() {}
-    ~MemberList() {}
 
-    bool processTransaction(Transaction& t)
+  public:
+    MemberList()
     {
-        //qDebug() << "Processing member id: " << t.memberID;
-        Member* m = findId(t.memberID);
-        if (m == nullptr) return false;
-        //qDebug() << "Name: " << m->name;
+    }
+    ~MemberList()
+    {
+    }
+
+    bool processTransaction(Transaction &t)
+    {
+        // qDebug() << "Processing member id: " << t.memberID;
+        Member *m = findId(t.memberID);
+        if (m == nullptr)
+            return false;
+        // qDebug() << "Name: " << m->name;
         if (m->type == "Executive")
         {
             m->totalRebate += t.total() * REBATE_RATE; // rebates are before tax
@@ -65,7 +77,7 @@ public:
         m->totalSpent += (t.total() + t.total() * TAX_RATE);
     }
 
-    void processAllTransactions(TransactionList& t)
+    void processAllTransactions(TransactionList &t)
     {
         for (int i = 0; i < t.count(); ++i)
         {
@@ -78,23 +90,29 @@ public:
         return m_data.count();
     }
 
-    Member* findId(int id)
+    Member *findId(int id)
     {
-        for (Member& m : m_data)
+        for (Member &m : m_data)
         {
-            if (m.id == id) return &m;
+            if (m.id == id)
+                return &m;
         }
         return nullptr;
     }
 
-    Member& operator[](int idx)
+    Member &operator[](int idx)
     {
         return m_data[idx];
     }
 
-    void append(Member& m)
+    void append(Member &m)
     {
         m_data.append(m);
+    }
+
+    Member &at(int idx)
+    {
+        return m_data[idx];
     }
 
     void appendFromFile(QString path)
