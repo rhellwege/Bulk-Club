@@ -72,8 +72,12 @@ public:
         int id = this->at(index.row());
 
         Member* member = db->members()->findId(id);
-        //qDebug() << member->name;
-        if (member == nullptr) return {};
+        //qDebug() << member->name
+        if (member == nullptr)
+        {
+            if (index.column() == 0) return "Shopper Doesn't Exist.";
+            return {};
+        }
         switch (index.column()) {
         case 0: return member->name;
         case 1: return member->type;
@@ -112,6 +116,7 @@ public:
     {
         beginResetModel();
         endResetModel();
+        //updateUnique();
     }
 private:
     BulkClubDatabase* db;

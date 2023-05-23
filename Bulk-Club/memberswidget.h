@@ -23,7 +23,7 @@ public:
     }
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override {return db->members()->count();}
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 7;}
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return (db->permission == Permission::ADMINISTRATOR) ? 7 : 6;}
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
     {
         if (role != Qt::DisplayRole && role != Qt::EditRole) return {};
@@ -74,6 +74,7 @@ public:
 
 public slots:
     void dbUpdated();
+    void updatePermissions(Permission permission);
 
 private slots:
     void on_buttonAddMember_clicked();
@@ -85,6 +86,7 @@ private:
     MembersModel *modelmembers;
     QSortFilterProxyModel *proxymembers;
     BulkClubDatabase *db;
+    void updateConversions();
 };
 
 #endif // MEMBERSWIDGET_H

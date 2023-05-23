@@ -2,6 +2,7 @@
 #define LOGINWIDGET_H
 
 #include <QWidget>
+#include "BulkClubDatabase.h" // for permissions
 
 namespace Ui {
 class LoginWidget;
@@ -16,7 +17,7 @@ public:
     ~LoginWidget();
 
 signals:
-    void updatePermissions(QString loginStatus);
+    void updatePermissions(Permission permission);
 
 private slots:
     void on_pushButtonLogOut_clicked();

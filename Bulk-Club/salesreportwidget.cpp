@@ -54,7 +54,9 @@ void SalesReportWidget::countShoppers()
     for (int row = 0; row < proxyShoppers->rowCount(); ++row)
     {
         int id = modelShoppers->at(proxyShoppers->mapToSource(proxyShoppers->index(row,0)).row());
-        QString memberType = db->members()->findId(id)->type;
+        Member *member = db->members()->findId(id);
+        if (member == nullptr) continue;
+        QString memberType = member->type;
         //qDebug() << "testing: " << memberType;
         if (memberType.contains("Executive")) executiveCount++;
         else if (memberType == "Regular") regularCount++;
@@ -97,5 +99,7 @@ void SalesReportWidget::dbUpdated()
     qDebug() << "Database updated in sales report.";
     modelItems->reset();
     modelShoppers->reset();
+    countShoppers();
+    updateTotalRevenue();
 }
 

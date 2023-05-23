@@ -19,7 +19,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void updatePermissions(QString loginStatus);
+    void updatePermissions(Permission permission);
     void on_tabWidgetMain_currentChanged(int index);
 
 private:

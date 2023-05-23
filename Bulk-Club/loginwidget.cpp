@@ -15,12 +15,22 @@ LoginWidget::~LoginWidget()
 
 void LoginWidget::on_pushButtonLogOut_clicked()
 {
-    emit updatePermissions("N/A");
+    emit updatePermissions(Permission::NONE);
 }
 
 
 void LoginWidget::on_pushButtonLogin_clicked()
 {
-    emit updatePermissions(ui->comboBoxLogin->currentText());
+    switch(ui->comboBoxLogin->currentIndex())
+    {
+    case 0:
+        emit updatePermissions(Permission::MANAGER);
+        break;
+    case 1:
+        emit updatePermissions(Permission::ADMINISTRATOR);
+        break;
+    default:
+        emit updatePermissions(Permission::NONE);
+    }
 }
 

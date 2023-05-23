@@ -104,6 +104,11 @@ public:
         m_data.append(m);
     }
 
+    Member& at(int idx)
+    {
+        return m_data[idx];
+    }
+
     void appendFromFile(QString path)
     {
         QFile file(path);

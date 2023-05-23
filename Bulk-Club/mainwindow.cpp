@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tabWidgetMain->setCurrentIndex(0);
 
     // initialization for all children:
-    updatePermissions("N/A");
+    updatePermissions(Permission::NONE);
     connect(ui->widgetLogin, &LoginWidget::updatePermissions, this, &MainWindow::updatePermissions);
     // setup salesreport
     SalesReportWidget *widgetSalesReport = new SalesReportWidget(this, &db);
@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     MembersWidget *widgetMembers = new MembersWidget(this, &db);
     ui->gridLayoutMembers->addWidget(widgetMembers);
     connect(&db, &BulkClubDatabase::dbUpdated, widgetMembers, &MembersWidget::dbUpdated);
+    connect(ui->widgetLogin, &LoginWidget::updatePermissions, widgetMembers, &MembersWidget::updatePermissions); // handle update login event inside the members widget
 }
 
 MainWindow::~MainWindow()
@@ -36,23 +37,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updatePermissions(QString loginStatus)
+void MainWindow::updatePermissions(Permission permission)
 {
     //cout << "called updatePermissions" << endl;
     QString fmtLoggedin = "Logged in as: ";
+    QString loginStatus;
+    switch (permission)
+    {
+    case Permission::MANAGER:
+        loginStatus = "Manager";
+        break;
+    case Permission::ADMINISTRATOR:
+        loginStatus = "Administrator";
+        break;
+    default:
+        loginStatus = "N/A";
+    }
+
     ui->statusbar->showMessage(fmtLoggedin.append(loginStatus));
-    if (loginStatus == "Manager")
-    {
-        db.permission = Permission::MANAGER;
-    }
-    else if (loginStatus == "Administrator")
-    {
-        db.permission = Permission::ADMINISTRATOR;
-    }
-    else
-    {
-        db.permission = Permission::NONE;
-    }
+    db.permission = permission;
+
 }
 
 void MainWindow::on_tabWidgetMain_currentChanged(int index)

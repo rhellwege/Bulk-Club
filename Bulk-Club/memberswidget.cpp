@@ -20,6 +20,7 @@ MembersWidget::MembersWidget(QWidget *parent, BulkClubDatabase* db) :
     proxymembers->setSourceModel(modelmembers);
     proxymembers->sort(0); // sort by id
     ui->tableViewMembers->setModel(proxymembers);
+    updateConversions();
 }
 
 MembersWidget::~MembersWidget()
@@ -82,8 +83,37 @@ void MembersWidget::dbUpdated()
 {
     qDebug() << "dbUpdated in members";
     modelmembers->reset();
+    updateConversions();
 }
 
+void MembersWidget::updatePermissions(Permission permission)
+{
+    modelmembers->reset(); // change the column count
+    // hide / show buttons if administrator
+    if (permission == Permission::ADMINISTRATOR)
+    {
+        ui->buttonAddMember->show();
+        ui->buttonRemoveSelected->show();
+        ui->labelConversions->show();
+    }
+    else
+    {
+        ui->buttonAddMember->hide();
+        ui->buttonRemoveSelected->hide();
+        ui->labelConversions->show();
+    }
+}
 
+void MembersWidget::updateConversions()
+{
+    int count = 0;
+
+    for (int i = 0; i < db->members()->count(); ++i)
+    {
+        if(db->members()->at(i).shouldConvert()) count++;
+    }
+    QString fmtConversions = QString("Recommended # of Conversions: %1").arg(count);
+    ui->labelConversions->setText(fmtConversions);
+}
 
 
