@@ -5,6 +5,7 @@
 
 #include <QMessageBox>
 #include <QDialog>
+#include <QSortFilterProxyModel>
 
 MembersWidget::MembersWidget(QWidget *parent, BulkClubDatabase* db) :
     QWidget(parent),
@@ -14,8 +15,11 @@ MembersWidget::MembersWidget(QWidget *parent, BulkClubDatabase* db) :
     this->db = db;
 
     // create the model:
-    membersmodel = new MembersModel(this, db);
-    ui->tableViewMembers->setModel(membersmodel);
+    modelmembers = new MembersModel(this, db);
+    proxymembers = new QSortFilterProxyModel(this);
+    proxymembers->setSourceModel(modelmembers);
+    proxymembers->sort(0); // sort by id
+    ui->tableViewMembers->setModel(proxymembers);
 }
 
 MembersWidget::~MembersWidget()
@@ -61,24 +65,23 @@ void MembersWidget::on_buttonRemoveSelected_clicked()
         return;
     }
     QModelIndexList selection = ui->tableViewMembers->selectionModel()->selectedIndexes();
+    //proxymembers->mapToSource()
     if (selection.count() < 1)
     {
         QMessageBox::information(this, "Selection Error",
                                  "You must select at least 1 row to delete");
         return;
     }
-    std::reverse(selection.begin(), selection.end());
-    foreach (QModelIndex idx, selection)
-    {
-        db->removeMemberAt(idx.row());
-    }
+
+    db->removeMemberAt(proxymembers->mapToSource(selection.at(0)).row());
+
 
 }
 
 void MembersWidget::dbUpdated()
 {
     qDebug() << "dbUpdated in members";
-    membersmodel->reset();
+    modelmembers->reset();
 }
 
 

@@ -44,6 +44,8 @@ struct Member
     {
         if (type == "Executive")
             return REGULAR_DUES < (EXECUTIVE_DUES-totalRebate);
+        else
+            return ((totalSpent-(totalSpent*TAX_RATE))*REBATE_RATE) > (EXECUTIVE_DUES-REGULAR_DUES);
         return false;
     }
 };

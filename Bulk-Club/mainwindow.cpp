@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->tabWidgetMain->setCurrentIndex(0);
 
     // initialization for all children:
     updatePermissions("N/A");

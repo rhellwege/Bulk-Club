@@ -11,6 +11,7 @@ namespace Ui {
 class MembersWidget;
 }
 
+// this is a model class for the table view inside the memberswidget
 class MembersModel : public QAbstractTableModel
 {
     Q_OBJECT
@@ -22,7 +23,7 @@ public:
     }
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override {return db->members()->count();}
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 4;}
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override {return 7;}
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
     {
         if (role != Qt::DisplayRole && role != Qt::EditRole) return {};
@@ -30,8 +31,11 @@ public:
         switch (index.column()) {
         case 0: return member.id;
         case 1: return member.name;
-        case 2: return member.type;
+        case 2: return member.expiration;
         case 3: return member.totalSpent;
+        case 4: return member.type;
+        case 5: return (member.type == "Regular") ? QVariant("N/A") : QVariant(member.totalRebate);
+        case 6: return (member.shouldConvert()) ? "Yes" : "No";
         default: return {};
         };
     }
@@ -41,8 +45,11 @@ public:
         switch (section) {
         case 0: return "ID";
         case 1: return "Name";
-        case 2: return "Type";
+        case 2: return "Expiration";
         case 3: return "Total Purchased";
+        case 4: return "Type";
+        case 5: return "Rebate";
+        case 6: return "Convert";
         default: return {};
         }
     }
@@ -75,7 +82,8 @@ private slots:
 
 private:
     Ui::MembersWidget *ui;
-    MembersModel *membersmodel;
+    MembersModel *modelmembers;
+    QSortFilterProxyModel *proxymembers;
     BulkClubDatabase *db;
 };
 
