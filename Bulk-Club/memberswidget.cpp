@@ -16,7 +16,7 @@ MembersWidget::MembersWidget(QWidget *parent, BulkClubDatabase* db) :
 
     // create the model:
     modelmembers = new MembersModel(this, db);
-    proxymembers = new QSortFilterProxyModel(this);
+    proxymembers = new NameIDFilter(this, db);
     proxymembers->setSourceModel(modelmembers);
     proxymembers->sort(0); // sort by id
     ui->tableViewMembers->setModel(proxymembers);
@@ -66,7 +66,6 @@ void MembersWidget::on_buttonRemoveSelected_clicked()
         return;
     }
     QModelIndexList selection = ui->tableViewMembers->selectionModel()->selectedIndexes();
-    //proxymembers->mapToSource()
     if (selection.count() < 1)
     {
         QMessageBox::information(this, "Selection Error",
@@ -100,7 +99,7 @@ void MembersWidget::updatePermissions(Permission permission)
     {
         ui->buttonAddMember->hide();
         ui->buttonRemoveSelected->hide();
-        ui->labelConversions->show();
+        ui->labelConversions->hide();
     }
 }
 
@@ -116,4 +115,29 @@ void MembersWidget::updateConversions()
     ui->labelConversions->setText(fmtConversions);
 }
 
+
+
+void MembersWidget::on_checkBoxFilter_stateChanged(int arg1)
+{
+    switch (arg1)
+    {
+    case Qt::Unchecked:
+        proxymembers->disable();
+        break;
+    case Qt::Checked:
+        proxymembers->enable();
+        break;
+    }
+}
+
+void MembersWidget::on_comboBoxFilter_currentIndexChanged(int index)
+{
+    qDebug() << "Comobo id" << index;
+    proxymembers->setFilterType(index);
+}
+
+void MembersWidget::on_lineEditFilter_textChanged(const QString &arg1)
+{
+    proxymembers->filterText(arg1);
+}
 

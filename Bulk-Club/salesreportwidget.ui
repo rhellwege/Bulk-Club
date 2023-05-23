@@ -50,7 +50,7 @@
    <item row="2" column="1">
     <widget class="QLabel" name="labelMembers">
      <property name="text">
-      <string>Shoppers</string>
+      <string>Unique Shoppers</string>
      </property>
     </widget>
    </item>
@@ -95,14 +95,24 @@
        <hour>23</hour>
        <minute>59</minute>
        <second>59</second>
-       <year>2021</year>
+       <year>9999</year>
        <month>4</month>
-       <day>10</day>
+       <day>11</day>
+      </datetime>
+     </property>
+     <property name="minimumDateTime">
+      <datetime>
+       <hour>1</hour>
+       <minute>0</minute>
+       <second>0</second>
+       <year>1900</year>
+       <month>4</month>
+       <day>1</day>
       </datetime>
      </property>
      <property name="minimumDate">
       <date>
-       <year>2021</year>
+       <year>1900</year>
        <month>4</month>
        <day>1</day>
       </date>

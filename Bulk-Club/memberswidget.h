@@ -63,6 +63,72 @@ private:
 
 };
 
+class NameIDFilter : public QSortFilterProxyModel
+{
+    Q_OBJECT
+
+public:
+    NameIDFilter(QObject *parent = 0, BulkClubDatabase* db = 0) : QSortFilterProxyModel(parent)
+    {
+        this->db = db;
+        enabled = false;
+        text = "";
+        filterType = 0;
+    }
+    void setFilterType(int type) {
+        this->filterType = type;
+        invalidateFilter();
+    }
+
+    void filterByName()
+    {
+        this->filterType = 0;
+        invalidateFilter();
+    }
+
+    void filterByID()
+    {
+        this->filterType = 1;
+        invalidateFilter();
+    }
+
+    void filterText(QString str)
+    {
+        text = str;
+        invalidateFilter();
+    }
+
+    void enable()
+    {
+        enabled = true;
+        invalidateFilter();
+    }
+    void disable()
+    {
+        enabled = false;
+        invalidateFilter();
+    }
+
+protected:
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        if (!enabled) return true;
+        switch (filterType)
+        {
+        case 0:
+            return db->members()->at(sourceRow).name.startsWith(text, Qt::CaseInsensitive);
+        default:
+            return QString::number(db->members()->at(sourceRow).id).startsWith(text, Qt::CaseSensitive);
+        }
+    }
+
+private:
+    int filterType; // if 0: name, if 1: id, 2: disabled
+    QString text;
+    bool enabled;
+    BulkClubDatabase* db;
+};
+
 
 class MembersWidget : public QWidget
 {
@@ -81,10 +147,16 @@ private slots:
 
     void on_buttonRemoveSelected_clicked();
 
+    void on_checkBoxFilter_stateChanged(int arg1);
+
+    void on_comboBoxFilter_currentIndexChanged(int index);
+
+    void on_lineEditFilter_textChanged(const QString &arg1);
+
 private:
     Ui::MembersWidget *ui;
     MembersModel *modelmembers;
-    QSortFilterProxyModel *proxymembers;
+    NameIDFilter *proxymembers;
     BulkClubDatabase *db;
     void updateConversions();
 };

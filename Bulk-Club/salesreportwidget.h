@@ -96,11 +96,12 @@ public:
 
     void updateUnique(QString date)
     {
+        this->date = date;
         beginResetModel();
         uniqueIDs.clear();
         for (int i = 0; i < db->transactions()->count(); ++i)
         {
-            Transaction& t = (*db->transactions())[i];
+            Transaction& t = db->transactions()->at(i);
             if (t.date == date) uniqueIDs.insert(t.memberID);
         }
         qDebug() << "unique ids count: " << uniqueIDs.count();
@@ -116,10 +117,11 @@ public:
     {
         beginResetModel();
         endResetModel();
-        //updateUnique();
+        updateUnique(date);
     }
 private:
     BulkClubDatabase* db;
+    QString date;
     QSet<int> uniqueIDs;
 };
 
@@ -141,7 +143,7 @@ public:
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
-        Transaction& t = (*db->transactions())[sourceRow];
+        Transaction& t = db->transactions()->at(sourceRow);
         Member *member = db->members()->findId(t.memberID);
         if (member == nullptr) return (t.date == this->date); // should we display items bought from ghosts?
         return (member->type == this->memberType || this->memberType == "Any") && (t.date == this->date);

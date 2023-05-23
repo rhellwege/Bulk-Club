@@ -24,6 +24,7 @@ public:
     Inventory() {}
     int count() { return m_data.count(); }
     Item& operator[](int idx) {return m_data[idx];}
+    Item& at(int idx) {return m_data[idx];}
     Item* findName(QString name)
     {
         for (auto item : m_data)

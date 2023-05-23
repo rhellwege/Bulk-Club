@@ -55,6 +55,11 @@ public:
         return m_data[idx];
     }
 
+    Transaction& at(int idx)
+    {
+        return m_data[idx];
+    }
+
     void append(Transaction& m)
     {
         m_data.append(m);

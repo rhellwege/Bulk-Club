@@ -17,6 +17,41 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="labelFilter">
+         <property name="text">
+          <string>Filter by</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBoxFilter">
+         <item>
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ID</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditFilter"/>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBoxFilter">
+         <property name="text">
+          <string>Enable</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <widget class="QTableView" name="tableViewMembers"/>
      </item>
      <item>
