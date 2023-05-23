@@ -143,7 +143,7 @@ protected:
     {
         Transaction& t = (*db->transactions())[sourceRow];
         Member *member = db->members()->findId(t.memberID);
-        if (member == nullptr) return false;
+        if (member == nullptr) return (t.date == this->date); // should we display items bought from ghosts?
         return (member->type == this->memberType || this->memberType == "Any") && (t.date == this->date);
         //return false;
     }
@@ -173,6 +173,8 @@ private slots:
     void on_dateEdit_userDateChanged(const QDate &date);
 
     void on_comboBoxFilter_currentIndexChanged(int index);
+
+    void on_buttonAddTransaction_clicked();
 
 private:
     void updateTotalRevenue();

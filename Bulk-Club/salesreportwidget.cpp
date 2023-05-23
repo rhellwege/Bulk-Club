@@ -1,6 +1,8 @@
 #include "salesreportwidget.h"
 #include "ui_salesreportwidget.h"
 
+#include "customdialog.h"
+
 SalesReportWidget::SalesReportWidget(QWidget *parent, BulkClubDatabase* db) :
     QWidget(parent),
     ui(new Ui::SalesReportWidget)
@@ -101,5 +103,34 @@ void SalesReportWidget::dbUpdated()
     modelShoppers->reset();
     countShoppers();
     updateTotalRevenue();
+}
+
+
+void SalesReportWidget::on_buttonAddTransaction_clicked()
+{
+    CustomDialog d("Add Transaction", this);
+    Transaction transaction;
+
+    string date;
+    string memberID;
+    string item;
+    string price;
+    string qty;
+
+    d.addLineEdit("Date: ", &date);
+    d.addLineEdit("ID: ", &memberID);
+    d.addLineEdit("Item: ", &item, "Full name");
+    d.addLineEdit("Price: ", &price);
+    d.addLineEdit("Qty: ", &qty);
+
+    d.exec();
+
+    if (d.wasCancelled()) return;
+    transaction.date = QString::fromStdString(date);
+    transaction.memberID = atoi(memberID.c_str());
+    transaction.item = QString::fromStdString(item);
+    transaction.price = atof(price.c_str());
+    transaction.qty = atoi(qty.c_str());
+    db->addTransaction(transaction);
 }
 

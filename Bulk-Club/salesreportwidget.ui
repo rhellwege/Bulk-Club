@@ -14,10 +14,67 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboBoxFilter">
+     <item>
+      <property name="text">
+       <string>Any</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Regular</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Executive</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Day to Display</string>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="1">
     <widget class="QLabel" name="labelUniqueShoppers">
      <property name="text">
       <string># of Regular Members: # of Executive Members</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="labelMembers">
+     <property name="text">
+      <string>Shoppers</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QTableView" name="tableViewShoppers"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="labelFilter">
+     <property name="text">
+      <string>Filter by Member Type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labelTotalRevenue">
+     <property name="text">
+      <string>Total Revenue (- tax): </string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="labelItems">
+     <property name="text">
+      <string>Items</string>
      </property>
     </widget>
    </item>
@@ -40,7 +97,7 @@
        <second>59</second>
        <year>2021</year>
        <month>4</month>
-       <day>9</day>
+       <day>10</day>
       </datetime>
      </property>
      <property name="minimumDate">
@@ -62,64 +119,14 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="labelItems">
-     <property name="text">
-      <string>Items</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0">
     <widget class="QTableView" name="tableViewItemsSold"/>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="labelTotalRevenue">
+   <item row="5" column="0">
+    <widget class="QPushButton" name="buttonAddTransaction">
      <property name="text">
-      <string>Total Revenue (- tax): </string>
+      <string>Add Transaction</string>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Day to Display</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QTableView" name="tableViewShoppers"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="labelMembers">
-     <property name="text">
-      <string>Shoppers</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="labelFilter">
-     <property name="text">
-      <string>Filter by Member Type</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="comboBoxFilter">
-     <item>
-      <property name="text">
-       <string>Any</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Regular</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Executive</string>
-      </property>
-     </item>
     </widget>
    </item>
   </layout>
