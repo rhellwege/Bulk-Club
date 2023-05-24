@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     customdialog.cpp \
+    inventorywidget.cpp \
     loginwidget.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -20,6 +21,7 @@ HEADERS += \
     BulkClubDatabase.h \
     customdialog.h \
     inventory.h \
+    inventorywidget.h \
     loginwidget.h \
     mainwindow.h \
     member.h \
@@ -28,6 +30,7 @@ HEADERS += \
     transaction.h
 
 FORMS += \
+    inventorywidget.ui \
     loginwidget.ui \
     mainwindow.ui \
     memberswidget.ui \

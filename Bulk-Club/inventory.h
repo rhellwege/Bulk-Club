@@ -37,6 +37,16 @@ class Inventory
     {
         return m_data[idx];
     }
+
+    void removeAt(int idx)
+    {
+        m_data.removeAt(idx);
+    }
+
+    void append(Item &i){
+        m_data.append(i);
+    }
+
     Item *findName(QString name)
     {
         for (auto item : m_data)

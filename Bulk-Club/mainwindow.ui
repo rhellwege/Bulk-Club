@@ -24,7 +24,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tabLogin">
        <attribute name="title">
@@ -50,6 +50,12 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayoutMembers"/>
       </widget>
+      <widget class="QWidget" name="tabInventory">
+       <attribute name="title">
+        <string>Inventory</string>
+       </attribute>
+       <layout class="QGridLayout" name="invGrid"/>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -60,7 +66,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

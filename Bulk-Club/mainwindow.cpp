@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "inventorywidget.h"
 #include "memberswidget.h"
 #include "salesreportwidget.h"
 #include <QMessageBox>
@@ -10,7 +11,8 @@
 #include <iostream>
 using namespace std;
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->tabWidgetMain->setCurrentIndex(0);
@@ -28,6 +30,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(&db, &BulkClubDatabase::dbUpdated, widgetMembers, &MembersWidget::dbUpdated);
     connect(ui->widgetLogin, &LoginWidget::updatePermissions, widgetMembers,
             &MembersWidget::updatePermissions); // handle update login event inside the members widget
+
+    InventoryWidget *widgetInventory = new InventoryWidget(this, &db);
+    ui->invGrid->addWidget(widgetInventory);
+    connect(&db, &BulkClubDatabase::dbUpdated, widgetInventory, &InventoryWidget::dbUpdated);
 }
 
 MainWindow::~MainWindow()

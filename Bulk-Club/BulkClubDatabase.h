@@ -79,6 +79,18 @@ class BulkClubDatabase : public QObject
         emit dbUpdated();
     }
 
+    void removeItemAt(int idx)
+    {
+        m_inventory.removeAt(idx);
+        emit dbUpdated();
+    }
+
+    void addItem(Item &i)
+    {
+        m_inventory.append(i);
+        emit dbUpdated();
+    }
+
   private:
     TransactionList m_transactionlist;
     MemberList m_memberlist;
